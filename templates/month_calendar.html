@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カレンダー</title>
+    <style>
+        .btn-primary {
+            background-color: #3d81ff;
+            border-color: #3d81ff;
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            font-family: 'Noto Sans', sans-serif;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* ボタンに影をつける */
+        }
+        .btn-primary:hover,.btn:hover {
+            background-color: #fff;
+            color: #3d81ff;
+            font-family: 'Noto Sans', sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td, .btn{
+            width: 14.28%; /* 7列なので100%を7で割る */
+            border: 1px solid #c5c3c3;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #5e97f9;
+        }
+    </style>
+</head>
+<body>
+    <form method="GET" action="/">
+        <input type="hidden" name="year" value="{{ year }}">
+        <input type="hidden" name="month" value="{{ month }}">
+    </form>
+    <form method="post">
+        <input type="hidden" name="year" value="{{ year }}">
+        <input type="hidden" name="month" value="{{ month }}">
+        <div class="text-center">
+            <button type="submit" name="action" value="last_month" class="btn btn-primary">先月</button>
+            <button type="submit" name="action" value="next_month" class="btn btn-primary">来月</button>
+        </div>
+    </form>
+    <h1>{{ year }}年{{ month }}月</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>月</th>
+                <th>火</th>
+                <th>水</th>
+                <th>木</th>
+                <th>金</th>
+                <th>土</th>
+                <th>日</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week in month_days %}
+                <tr>
+                    {% for day in week %}
+                        {% if day == 0 %}
+                            <td></td>
+                        {% else %}
+                            <td>{{ day }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="post"  action="/week">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">週</button>
+        </div>
+    </form>
+    <form method="post"  action="/month">
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">月</button>
+        </div>
+    </form>
+</body>
+</html>

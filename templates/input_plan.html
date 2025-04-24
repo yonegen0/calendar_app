@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>カレンダー</title>
+    <style>
+        .btn-primary {
+            background-color: #3d81ff;
+            border-color: #3d81ff;
+            color: #ffffff;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-family: 'Noto Sans', sans-serif;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* ボタンに影をつける */
+        }
+        .btn-primary:hover {
+            background-color: #fff;
+            color: #3d81ff;
+            font-family: 'Noto Sans', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ year }}年{{ month }}月{{ day }}日</h1>
+    <form method="post"  action="/plan">
+        <label for="plan">予定追加:</label><br>
+        <input type="text" id="plan" name="plan" placeholder="予定を入力" size="50" maxlength="255"><br><br>
+        <div class="text-center">
+            <button type="submit" name="day" value="{{ day }}" class="btn btn-primary">追加</button>
+        </div>
+    </form>
+</body>
+</html>

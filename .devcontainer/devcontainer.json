@@ -1,0 +1,45 @@
+{
+    "name": "Calendar App Dev Container",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/app",
+    "features": {
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.9"
+        }
+    },
+    "forwardPorts": [5000, 3306],
+    "postCreateCommand": "pip install -r requirements.txt",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ]
+        }
+    }
+}
+
+// {
+//     "name": "Calendar App Dev Container",
+//     "build": {
+//       "dockerfile": "./Dockerfile",
+//       "context": ".." // または "." など、プロジェクトルートからの相対パス
+//     },
+//     "workspaceFolder": "/app",  
+//     "features": {
+//         "ghcr.io/devcontainers/features/python:1": {
+//             "version": "3.9"
+//         }
+//     },
+//     "forwardPorts": [5000, 3306],
+//     "postCreateCommand": "pip install -r requirements.txt",
+//     "customizations": {
+//         "vscode": {
+//             "extensions": [
+//                 "ms-python.python",
+//                 "ms-python.vscode-pylance"
+//             ]
+//         }
+//     }
+// }

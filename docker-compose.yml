@@ -1,0 +1,87 @@
+# version: '3.8'
+
+# services:
+#   db:
+#     image: mysql:8.0
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
+#       MYSQL_DATABASE: MYSQL_DATABASE
+#       MYSQL_USER: MYSQL_USER
+#       MYSQL_PASSWORD: MYSQL_PASSWORD
+#     volumes:
+#       - db_data:/var/lib/mysql
+
+# volumes:
+#   db_data:
+
+# version: '3.8'
+
+# services:
+#   app:
+#     build:
+#       context: ./ # ビルドコンテキストを docker-compose.yml があるディレクトリ（/root/work/calendar_app）に設定
+#       dockerfile: ./.devcontainer/Dockerfile # Dockerfile のパスはビルドコンテキストからの相対パスで指定
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - db
+#     environment:
+#       DATABASE_HOST: db
+#       DATABASE_USER: ${MYSQL_USER}
+#       DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+#       DATABASE_NAME: ${MYSQL_DATABASE}
+#     networks:
+#       - app-network
+
+#   db:
+#     image: mysql:8.0
+#     ports:
+#       - "3306:3306"
+#     environment:
+#       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#       MYSQL_DATABASE: ${MYSQL_DATABASE}
+#     volumes:
+#       - db_data:/var/lib/mysql
+#     networks:
+#       - app-network
+
+# networks:
+#   app-network:
+#     name: calendar_app_network
+# volumes:
+#   db_data:
+
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./.devcontainer
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: sqlpass
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:
